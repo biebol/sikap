@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Bulan Mei 2023 pada 05.18
+-- Waktu pembuatan: 05 Bulan Mei 2023 pada 19.04
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -44,7 +44,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
 (12, 'Bina Sungkawaman', 'binabiebol@gmail.com', 'default.jpg', '$2y$10$.r337iP4QkDRew6RFBPmy.l0bfRGYi.t2PHdbyauOzeXUIv6NR6Bi', 1, 1, 1683247519),
-(15, 'Afshah', 'afshahkuaja@gmail.com', 'default.jpg', '$2y$10$IJ9eIW7CGhzo5W86.Od61eXJrUZU5PLov.r4lVrIk06jfEiX2qL0a', 2, 1, 1683250349);
+(15, 'Afshah', 'afshahkuaja@gmail.com', 'default.jpg', '$2y$10$IJ9eIW7CGhzo5W86.Od61eXJrUZU5PLov.r4lVrIk06jfEiX2qL0a', 2, 1, 1683250349),
+(18, 'raisa', 'raisa@gmail.com', 'default.jpg', '$2y$10$ywIn.y4DgJVYtQNV9/SeaeHGuw76Pmk2qSrhkMiROr0H81SNarX3i', 2, 1, 1683270823);
 
 -- --------------------------------------------------------
 
@@ -132,8 +133,9 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (3, 2, 'Edit Profile', 'user/edit', 'fas fa-fw fa-user-edit', 1),
 (4, 3, 'Menu Management', 'menu', 'fas fa-fw fa-folder', 1),
 (5, 3, 'Submenu Management', 'menu/submenu', 'fas fa-fw fa-folder-open', 1),
-(7, 1, 'Role', 'admin/role', 'fas fa-fw fa-user-tie', 1),
-(8, 2, 'Change Password', 'user/changepassword', 'fas fa-fw fa-key', 1);
+(6, 1, 'Role', 'admin/role', 'fas fa-fw fa-user-tie', 1),
+(7, 2, 'Change Password', 'user/changepassword', 'fas fa-fw fa-key', 1),
+(8, 2, 'Input Usul KP', 'user/usulan', 'fas fa-fw fa-usulan', 1);
 
 -- --------------------------------------------------------
 
@@ -204,7 +206,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_access_menu`
@@ -228,7 +230,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_token`

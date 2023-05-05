@@ -12,7 +12,10 @@
                         <div class="col-lg">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Menu Login</h1>
+                                    <a href="#">
+                                        <img src="<?= base_url('assets/img/logo.jpg'); ?>" alt="Logo" class="img-responsive" style="max-height: 150px;">
+                                    </a>
+                                    <h1 class="h4 text-gray-900 mb-4"><b>Menu Login</b></h1>
                                 </div>
 
                                 <?= $this->session->flashdata('message'); ?>
@@ -47,4 +50,4 @@
 
     </div>
 
-</div> 
+</div>

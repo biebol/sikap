@@ -24,7 +24,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'http://localhost/wpu-login/';original
+<<<<<<< Updated upstream
 $config['base_url'] = 'http://localhost/sikap/';
+=======
+$config['base_url'] = 'https://localhost/sikap/';
+>>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------

@@ -31,8 +31,8 @@
                 <label for="pangkat_lama">Pangkat Lama:</label>
                 <select name="pangkat_lama" id="pangkat_lama" class="form-control">
                     <option value="">Pilih Pangkat Lama</option>
-                    <?php foreach ($pangkat_lama as $pangkat) : ?>
-                        <option value="<?= $pangkat['pangkat_id']; ?>"><?= $pangkat['nama_pangkat']; ?></option>
+                    <?php foreach ($pangkat_lama as $key => $value) : ?>
+                        <option value="<?= $key; ?>"><?= $value; ?></option>
                     <?php endforeach; ?>
                 </select>
                 <?= form_error('pangkat_lama', '<small class="text-danger">', '</small>'); ?>
@@ -42,8 +42,8 @@
                 <label for="pangkat_baru">Pangkat Baru:</label>
                 <select name="pangkat_baru" id="pangkat_baru" class="form-control">
                     <option value="">Pilih Pangkat Baru</option>
-                    <?php foreach ($pangkat_baru as $pangkat) : ?>
-                        <option value="<?= $pangkat['pangkat_id']; ?>"><?= $pangkat['nama_pangkat']; ?></option>
+                    <?php foreach ($pangkat_baru as $key => $value) : ?>
+                        <option value="<?= $key; ?>"><?= $value; ?></option>
                     <?php endforeach; ?>
                 </select>
                 <?= form_error('pangkat_baru', '<small class="text-danger">', '</small>'); ?>

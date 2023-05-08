@@ -28,30 +28,30 @@
             </div>
 
             <div class="form-group">
-                <label for="pangkat_lama">Pangkat Lama</label>
-                <select class="form-control" id="pangkat_lama" name="pangkat_lama">
+                <label for="pangkat_lama">Pangkat Lama:</label>
+                <select name="pangkat_lama" id="pangkat_lama" class="form-control">
                     <option value="">Pilih Pangkat Lama</option>
                     <?php foreach ($pangkat_lama as $pangkat) : ?>
-                        <option value="<?= $pangkat['pangkatlama_id']; ?>"><?= $pangkat['nama_jabatan']; ?></option>
+                        <option value="<?= $pangkat['pangkat_id']; ?>"><?= $pangkat['nama_pangkat']; ?></option>
                     <?php endforeach; ?>
                 </select>
                 <?= form_error('pangkat_lama', '<small class="text-danger">', '</small>'); ?>
             </div>
 
             <div class="form-group">
-                <label for="pangkat_baru">Pangkat Baru</label>
-                <select class="form-control" id="pangkat_baru" name="pangkat_baru">
+                <label for="pangkat_baru">Pangkat Baru:</label>
+                <select name="pangkat_baru" id="pangkat_baru" class="form-control">
                     <option value="">Pilih Pangkat Baru</option>
                     <?php foreach ($pangkat_baru as $pangkat) : ?>
-                        <option value="<?= $pangkat['pangkatbaru_id']; ?>"><?= $pangkat['nama_pangkat_baru']; ?></option>
+                        <option value="<?= $pangkat['pangkat_id']; ?>"><?= $pangkat['nama_pangkat']; ?></option>
                     <?php endforeach; ?>
                 </select>
                 <?= form_error('pangkat_baru', '<small class="text-danger">', '</small>'); ?>
             </div>
 
             <div class="form-group">
-                <label for="jenis_kenaikan">Jenis Kenaikan Pangkat</label>
-                <select class="form-control" id="jenis_kenaikan" name="jenis_kenaikan">
+                <label for="jenis_kenaikan">Jenis Kenaikan Pangkat:</label>
+                <select name="jenis_kenaikan" id="jenis_kenaikan" class="form-control">
                     <option value="">Pilih Jenis Kenaikan Pangkat</option>
                     <option value="Regional">Reguler</option>
                     <option value="Fungsional">Fungsional</option>
@@ -59,10 +59,9 @@
                 </select>
                 <?= form_error('jenis_kenaikan', '<small class="text-danger">', '</small>'); ?>
             </div>
-
             <div class="form-group row justify-content-end">
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Next</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                     <button type="reset" class="btn btn-secondary">Reset</button>
                 </div>
             </div>

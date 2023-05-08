@@ -220,7 +220,7 @@ class User extends CI_Controller
 }
 public function pangkat()
 {
-    $data['title'] = 'Input Pangkat';
+    $data['title'] = 'Tambah Pangkat';
     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
     $this->form_validation->set_rules('nama_pangkat', 'Nama Pangkat', 'required');
@@ -230,7 +230,7 @@ public function pangkat()
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('user/pangkat', $data);
+        $this->load->view('admin/pangkat', $data);
         $this->load->view('templates/footer');
     } else {
         $nama_pangkat = $this->input->post('nama_pangkat');
@@ -241,7 +241,7 @@ public function pangkat()
         $query = $this->db->get('pangkat');
         if ($query->num_rows() > 0) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Nama Pangkat sudah ada!</div>');
-            redirect('user/pangkat');
+            redirect('admin/pangkat');
         }
         $data = array(
             'nama_pangkat' => $nama_pangkat,
@@ -252,7 +252,7 @@ public function pangkat()
         $this->db->insert('pangkat', $data);
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pangkat Sudah Update</div>');
-        redirect('user/pangkat');
+        redirect('admin/pangkat');
     }
 }
 

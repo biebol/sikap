@@ -11,8 +11,8 @@ class Pangkat_model extends CI_Model
         $options = array();
 
         if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $options[$row->pangkat_id] = $row->nama_pangkat;
+            foreach ($query->result_array() as $row) {
+                $options[$row['pangkat_id']] = $row['nama_pangkat'];
             }
         }
 

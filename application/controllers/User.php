@@ -126,8 +126,8 @@ class User extends CI_Controller
 
     if ($this->form_validation->run() == false) {
         $this->load->model('Pangkat_model'); // Load model Pangkat_model
-        $data['pangkat_lama_options'] = $this->Pangkat_model->getPangkatOptions(); // Ambil opsi pangkat lama dari model
-        $data['pangkat_baru_options'] = $this->Pangkat_model->getPangkatOptions(); // Ambil opsi pangkat baru dari model
+        $data['pangkat_lama'] = $this->Pangkat_model->getPangkatOptions(); // Ambil opsi pangkat lama dari model
+        $data['pangkat_baru'] = $this->Pangkat_model->getPangkatOptions(); // Ambil opsi pangkat baru dari model
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

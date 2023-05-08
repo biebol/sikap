@@ -216,6 +216,7 @@ class User extends CI_Controller
 public function pangkat()
 {
     $data['title'] = 'Input Pangkat';
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
     $this->form_validation->set_rules('nama_pangkat', 'Nama Pangkat', 'required');
     $this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
@@ -229,15 +230,17 @@ public function pangkat()
     } else {
         $nama_pangkat = $this->input->post('nama_pangkat');
         $singkatan = $this->input->post('singkatan');
-
+        $created_at = date('Y-m-d H:i:s');
+       
         $data = array(
             'nama_pangkat' => $nama_pangkat,
-            'singkatan' => $singkatan
+            'singkatan' => $singkatan,
+            'created_at' => $created_at
         );
 
         $this->db->insert('pangkat', $data);
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data pangkat telah ditambahkan!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jabatan Telah di Simpan!</div>');
         redirect('user/pangkat');
     }
 }

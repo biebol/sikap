@@ -213,6 +213,33 @@ class User extends CI_Controller
         redirect('user');
     }
 }
+public function pangkat()
+{
+    $data['title'] = 'Input Pangkat';
 
+    $this->form_validation->set_rules('nama_pangkat', 'Nama Pangkat', 'required');
+    $this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
+
+    if ($this->form_validation->run() == false) {
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/pangkat', $data);
+        $this->load->view('templates/footer');
+    } else {
+        $nama_pangkat = $this->input->post('nama_pangkat');
+        $singkatan = $this->input->post('singkatan');
+
+        $data = array(
+            'nama_pangkat' => $nama_pangkat,
+            'singkatan' => $singkatan
+        );
+
+        $this->db->insert('pangkat', $data);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data pangkat telah ditambahkan!</div>');
+        redirect('user/pangkat');
+    }
+}
 
 }

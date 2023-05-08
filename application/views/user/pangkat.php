@@ -7,7 +7,7 @@
     <!-- Form Input Pangkat -->
     <div class="row">
         <div class="col-lg-6">
-            <?= form_open('user/save_pangkat'); ?>
+            <?= form_open('user/pangkat'); ?>
                 <div class="form-group">
                     <label for="nama_pangkat">Nama Pangkat</label>
                     <input type="text" class="form-control" id="nama_pangkat" name="nama_pangkat" required>

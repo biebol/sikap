@@ -75,4 +75,43 @@ class Admin extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Access Changed!</div>');
     }
+    public function pangkat()
+{
+    $data['title'] = 'Tambah Pangkat';
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+
+    $this->form_validation->set_rules('nama_pangkat', 'Nama Pangkat', 'required');
+    $this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
+    $data['pangkat'] = $this->db->get('pangkat')->result_array();
+    
+    if ($this->form_validation->run() == false) {
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/pangkat', $data);
+        $this->load->view('templates/footer');
+    } else {
+        $nama_pangkat = $this->input->post('nama_pangkat');
+        $singkatan = $this->input->post('singkatan');
+        $created_at = date('Y-m-d H:i:s');
+       
+    $this->db->where('nama_pangkat', $nama_pangkat);
+        $query = $this->db->get('pangkat');
+        if ($query->num_rows() > 0) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Nama Pangkat sudah ada!</div>');
+            redirect('admin/pangkat');
+        }
+        $data = array(
+            'nama_pangkat' => $nama_pangkat,
+            'singkatan' => $singkatan,
+            'created_at' => $created_at
+        );
+
+        $this->db->insert('pangkat', $data);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pangkat Sudah Update</div>');
+        redirect('admin/pangkat');
+    }
+}
 }

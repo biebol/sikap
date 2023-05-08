@@ -1,4 +1,4 @@
-<div class="container">
+<div class=".bg-gradient-primary">
 
     <!-- Outer Row -->
     <div class="row justify-content-center">

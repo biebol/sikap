@@ -111,66 +111,65 @@ class User extends CI_Controller
         }
     }
     
-    public function usulkp()
-    {
-        $data['title'] = 'Usulan KP';
-        $user_id = $this->session->userdata('user_id');
-        $data['user'] = $this->db->get_where('user', ['id' => $user_id])->row_array();
-    
-        $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
-    
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('user/usulkp', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $name = $this->input->post('name');
-    
-            // Validasi dan proses upload file
-            $config['upload_path'] = './uploads/';
-            $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 2048; // 2MB
-    
-            $this->load->library('upload', $config);
-    
-            $file_upload_names = ['KepPangkatTerakhir', 'KepJabatanTerakhir', 'IjazahDikumti', 'IjazahUjianDinas', 'Algol', 'SKP2ThnTerakhir'];
-    
-            $file_paths = [];
-    
-            foreach ($file_upload_names as $file_name) {
-                if (!$this->upload->do_upload($file_name)) {
-                    $error = $this->upload->display_errors();
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $error . '</div>');
-                    redirect('user/usulkp');
-                } else {
-                    $file_paths[$file_name] = $this->upload->data('file_path');
-                }
+  public function usulkp()
+{
+    $data['title'] = 'Usulan KP';
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+    $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/usulkp', $data);
+        $this->load->view('templates/footer');
+    } else {
+        $name = $this->input->post('name');
+
+        // Validasi dan proses upload file
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size'] = 2048; // 2MB
+
+        $this->load->library('upload', $config);
+
+        $file_upload_names = ['KepPangkatTerakhir', 'KepJabatanTerakhir', 'IjazahDikumti', 'IjazahUjianDinas', 'Algol', 'SKP2ThnTerakhir'];
+
+        $file_paths = [];
+
+        foreach ($file_upload_names as $file_name) {
+            if (!$this->upload->do_upload($file_name)) {
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $error . '</div>');
+                redirect('user/usulkp');
+            } else {
+                $file_paths[$file_name] = $this->upload->data('file_path');
             }
-    
-            // Simpan data ke tabel usulkp
-            $usulkp_data = [
-                'user_id' => $user_id,
-                'KepPangkatTerakhir' => $file_paths['KepPangkatTerakhir'],
-                'KepJabatanTerakhir' => $file_paths['KepJabatanTerakhir'],
-                'IjazahDikumti' => $file_paths['IjazahDikumti'],
-                'IjazahUjianDinas' => $file_paths['IjazahUjianDinas'],
-                'Algol' => $file_paths['Algol'],
-                'SKP2ThnTerakhir' => $file_paths['SKP2ThnTerakhir'],
-            ];
-    
-            $this->db->insert('usulkp', $usulkp_data);
-    
-            // Update data ke tabel user
-            $this->db->set('name', $name);
-            $this->db->where('id', $user_id);
-            $this->db->update('user');
-    
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your profile has been updated!</div>');
-            redirect('user');
         }
+
+        // Simpan data ke tabel usulkp
+        $usulkp_data = [
+            'user_id' => $user_id,
+            'KepPangkatTerakhir' => $file_paths['KepPangkatTerakhir'],
+            'KepJabatanTerakhir' => $file_paths['KepJabatanTerakhir'],
+            'IjazahDikumti' => $file_paths['IjazahDikumti'],
+            'IjazahUjianDinas' => $file_paths['IjazahUjianDinas'],
+            'Algol' => $file_paths['Algol'],
+            'SKP2ThnTerakhir' => $file_paths['SKP2ThnTerakhir'],
+        ];
+
+        $this->db->insert('usulkp', $usulkp_data);
+
+        // Update data ke tabel user
+        $this->db->set('name', $name);
+        $this->db->where('id', $user_id);
+        $this->db->update('user');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your profile has been updated!</div>');
+        redirect('user');
     }
+}
 
 
 }

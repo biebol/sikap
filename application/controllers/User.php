@@ -110,4 +110,57 @@ class User extends CI_Controller
             }
         }
     }
+    
+    public function usulkp()
+    {
+        $data['title'] = 'Usulan KP';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    
+        $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/usulkp', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $name = $this->input->post('name');
+            $email = $this->input->post('email');
+    
+            // Validasi dan proses upload file
+            $config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'pdf';
+            $config['max_size'] = 2048; // 2MB
+    
+            $this->load->library('upload', $config);
+    
+            $file_upload_names = ['kep_pangkat', 'kep_jabatan', 'ijazah_dikumti', 'ijazah_ud', 'algol', 'skp'];
+    
+            foreach ($file_upload_names as $file_name) {
+                if (!$this->upload->do_upload($file_name)) {
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $error . '</div>');
+                    redirect('user/usulkp');
+                } else {
+                    $data[$file_name] = $this->upload->data('file_name');
+                }
+            }
+    
+            // Update data ke database
+            $this->db->set('name', $name);
+            $this->db->where('email', $email);
+            $this->db->update('user');
+    
+            // Simpan data file yang diupload ke database
+            $this->db->set($data);
+            $this->db->where('email', $email);
+            $this->db->update('user');
+    
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your profile has been updated!</div>');
+            redirect('user');
+        }
+    }
+
+
 }

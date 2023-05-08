@@ -114,7 +114,8 @@ class User extends CI_Controller
     public function usulkp()
     {
         $data['title'] = 'Usulan KP';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $user_id = $this->session->userdata('user_id');
+        $data['user'] = $this->db->get_where('user', ['id' => $user_id])->row_array();
     
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
     
@@ -126,7 +127,6 @@ class User extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $name = $this->input->post('name');
-            $email = $this->input->post('email');
     
             // Validasi dan proses upload file
             $config['upload_path'] = './uploads/';
@@ -135,7 +135,9 @@ class User extends CI_Controller
     
             $this->load->library('upload', $config);
     
-            $file_upload_names = ['kep_pangkat', 'kep_jabatan', 'ijazah_dikumti', 'ijazah_ud', 'algol', 'skp'];
+            $file_upload_names = ['KepPangkatTerakhir', 'KepJabatanTerakhir', 'IjazahDikumti', 'IjazahUjianDinas', 'Algol', 'SKP2ThnTerakhir'];
+    
+            $file_paths = [];
     
             foreach ($file_upload_names as $file_name) {
                 if (!$this->upload->do_upload($file_name)) {
@@ -143,18 +145,26 @@ class User extends CI_Controller
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $error . '</div>');
                     redirect('user/usulkp');
                 } else {
-                    $data[$file_name] = $this->upload->data('file_name');
+                    $file_paths[$file_name] = $this->upload->data('file_path');
                 }
             }
     
-            // Update data ke database
-            $this->db->set('name', $name);
-            $this->db->where('email', $email);
-            $this->db->update('user');
+            // Simpan data ke tabel usulkp
+            $usulkp_data = [
+                'user_id' => $user_id,
+                'KepPangkatTerakhir' => $file_paths['KepPangkatTerakhir'],
+                'KepJabatanTerakhir' => $file_paths['KepJabatanTerakhir'],
+                'IjazahDikumti' => $file_paths['IjazahDikumti'],
+                'IjazahUjianDinas' => $file_paths['IjazahUjianDinas'],
+                'Algol' => $file_paths['Algol'],
+                'SKP2ThnTerakhir' => $file_paths['SKP2ThnTerakhir'],
+            ];
     
-            // Simpan data file yang diupload ke database
-            $this->db->set($data);
-            $this->db->where('email', $email);
+            $this->db->insert('usulkp', $usulkp_data);
+    
+            // Update data ke tabel user
+            $this->db->set('name', $name);
+            $this->db->where('id', $user_id);
             $this->db->update('user');
     
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your profile has been updated!</div>');

@@ -40,46 +40,46 @@
 
             <!-- Upload File Fields -->
             <div class="form-group row">
-                <label for="kep_pangkat" class="col-sm-2 col-form-label">Kep Pangkat Terakhir</label>
+                <label for="kep_pangkat" class="col-sm-2 col-form-label">Kep Pangkat Terakhir (PDF, max 2MB)</label>
                 <div class="col-sm-10">
-                    <input type="file" class="form-control-file" id="kep_pangkat" name="kep_pangkat">
+                    <input type="file" class="form-control-file" id="kep_pangkat" name="kep_pangkat" accept=".pdf" max-size="2048000">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="kep_jabatan" class="col-sm-2 col-form-label">Kep Jabatan Terakhir</label>
+                <label for="kep_jabatan" class="col-sm-2 col-form-label">Kep Jabatan Terakhir (PDF, max 2MB)</label>
                 <div class="col-sm-10">
-                    <input type="file" class="form-control-file" id="kep_jabatan" name="kep_jabatan">
+                    <input type="file" class="form-control-file" id="kep_jabatan" name="kep_jabatan" accept=".pdf" max-size="2048000">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="ijazah_dikumti" class="col-sm-2 col-form-label">Ijazah Dikumti</label>
+                <label for="ijazah_dikumti" class="col-sm-2 col-form-label">Ijazah Dikumti (PDF, max 2MB)</label>
                 <div class="col-sm-10">
-                    <input type="file" class="form-control-file" id="ijazah_dikumti" name="ijazah_dikumti">
+                    <input type="file" class="form-control-file" id="ijazah_dikumti" name="ijazah_dikumti" accept=".pdf" max-size="2048000">
                 </div>
             </div>
             <div class="form-group row">
-                        <label for="ijazah_ud" class="col-sm-2 col-form-label">Ijazah Ujian Dinas</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="ijazah_ud" name="ijazah_ud">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="algol" class="col-sm-2 col-form-label">Algol (khusus ke III/a)</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="algol" name="algol">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="skp" class="col-sm-2 col-form-label">SKP 2 Thn Terakhir</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control-file" id="skp" name="skp">
-                        </div>
-                    </div>
+                <label for="ijazah_ud" class="col-sm-2 col-form-label">Ijazah Ujian Dinas (PDF, max 2MB)</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control-file" id="ijazah_ud" name="ijazah_ud" accept=".pdf" max-size="2048000">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="algol" class="col-sm-2 col-form-label">Algol (khusus ke III/a) (PDF, max 2MB)</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control-file" id="algol" name="algol" accept=".pdf" max-size="2048000">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="skp" class="col-sm-2 col-form-label">SKP 2 Thn Terakhir (PDF, max 2MB)</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control-file" id="skp" name="skp" accept=".pdf" max-size="2048000">
+                </div>
+            </div>
             <!-- End of Upload File Fields -->
 
             <div class="form-group row justify-content-end">
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
 

@@ -111,9 +111,52 @@ class User extends CI_Controller
         }
     }
     
+    public function usulkp_form()
+    {
+        $data['title'] = 'Form Input Usulan Kenaikan Pangkat';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    
+        $this->form_validation->set_rules('nip', 'NIP', 'required');
+        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
+        $this->form_validation->set_rules('pangkat_lama', 'Pangkat Lama', 'required');
+        $this->form_validation->set_rules('pangkat_baru', 'Pangkat Baru', 'required');
+        $this->form_validation->set_rules('jenis_kenaikan', 'Jenis Kenaikan Pangkat', 'required');
+    
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/usulkp_form', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $nip = $this->input->post('nip');
+            $nama = $this->input->post('nama');
+            $jabatan = $this->input->post('jabatan');
+            $pangkat_lama = $this->input->post('pangkat_lama');
+            $pangkat_baru = $this->input->post('pangkat_baru');
+            $jenis_kenaikan = $this->input->post('jenis_kenaikan');
+    
+            // Simpan data ke dalam table usulkp
+            $usulkp_data = array(
+                'id' => $data['user']['id'],
+                'nip' => $nip,
+                'nama' => $nama,
+                'jabatan' => $jabatan,
+                'pangkat_lama' => $pangkat_lama,
+                'pangkat_baru' => $pangkat_baru,
+                'jenis_kenaikan' => $jenis_kenaikan
+            );
+    
+            $this->db->insert('usulkp', $usulkp_data);
+    
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data usulan KP telah disimpan!</div>');
+            redirect('user/usulkp_form');
+        }
+    }
   public function usulkp()
 {
-    $data['title'] = 'Usulan KP';
+    $data['title'] = 'Dokumen Kenaikan Pangkat Reguler';
     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
     $this->form_validation->set_rules('name', 'Full Name', 'required|trim');

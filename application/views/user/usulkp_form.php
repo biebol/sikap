@@ -8,7 +8,7 @@
         <div class="col-lg-6">
 
             <?= form_open_multipart('user/usulkp_form'); ?>
-            
+
             <div class="form-group">
                 <label for="nip">NIP</label>
                 <input type="text" class="form-control" id="nip" name="nip" value="<?= set_value('nip'); ?>">
@@ -53,7 +53,7 @@
                 <label for="jenis_kenaikan">Jenis Kenaikan Pangkat</label>
                 <select class="form-control" id="jenis_kenaikan" name="jenis_kenaikan">
                     <option value="">Pilih Jenis Kenaikan Pangkat</option>
-                    <option value="Regional">Regional</option>
+                    <option value="Regional">Reguler</option>
                     <option value="Fungsional">Fungsional</option>
                     <option value="Struktural">Struktural</option>
                 </select>
@@ -75,4 +75,4 @@
 </div>
 <!-- /.container-fluid -->
 </div>
-<!-- End of Main Content --> 
+<!-- End of Main Content -->

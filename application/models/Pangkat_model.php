@@ -30,7 +30,7 @@ class Pangkat_model extends CI_Model
     }
     public function deletePangkat($pangkat_id)
     {
-    return $this->db->delete($this->table, array('pangkat_id' => $pangkat_id));
+    return $this->db->delete($this->pangkat, array('pangkat_id' => $pangkat_id));
     }
 }
 ?>

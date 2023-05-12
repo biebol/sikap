@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="email" class="col-sm-2 col-form-label">Full Name</label>
+                <label for="name" class="col-sm-2 col-form-label">Full Name</label>
                 <div class="col-sm-10">
                 <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>" readonly>
                 <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -40,39 +40,45 @@
 
             <!-- Upload File Fields -->
             <div class="form-group row">
-                <label for="kep_pangkat" class="col-sm-5 col-form-label">Kep Pangkat Terakhir (PDF, max 2MB)</label>
+                <label for="KepPangkatTerakhir" class="col-sm-5 col-form-label">Kep Pangkat Terakhir (PDF, max 2MB)</label>
                 <div class="col-sm-6">
-                    <input type="file" class="form-control-file" id="kep_pangkat" name="kep_pangkat" accept=".pdf" max-size="2048000">
+                    <input type="file" class="form-control-file" id="KepPangkatTerakhir" name="KepPangkatTerakhir" accept=".pdf" max-size="2048000">
+                    <?= form_error('KepPangkatTerakhir', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="kep_jabatan" class="col-sm-5 col-form-label">Kep Jabatan Terakhir (PDF, max 2MB)</label>
+                <label for="KepJabatanTerakhir" class="col-sm-5 col-form-label">Kep Jabatan Terakhir (PDF, max 2MB)</label>
                 <div class="col-sm-6">
-                    <input type="file" class="form-control-file" id="kep_jabatan" name="kep_jabatan" accept=".pdf" max-size="2048000">
+                    <input type="file" class="form-control-file" id="KepJabatanTerakhir" name="KepJabatanTerakhir" accept=".pdf" max-size="2048000">
+                    <?= form_error('KepJabatanTerakhir', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="ijazah_dikumti" class="col-sm-5 col-form-label">Ijazah Dikumti (PDF, max 2MB)</label>
+                <label for="IjazahDikumti" class="col-sm-5 col-form-label">Ijazah Dikumti (PDF, max 2MB)</label>
                 <div class="col-sm-6">
-                    <input type="file" class="form-control-file" id="ijazah_dikumti" name="ijazah_dikumti" accept=".pdf" max-size="2048000">
+                    <input type="file" class="form-control-file" id="IjazahDikumti" name="IjazahDikumti" accept=".pdf" max-size="2048000">
+                    <?= form_error('IjazahDikumti', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="ijazah_ud" class="col-sm-5 col-form-label">Ijazah Ujian Dinas (PDF, max 2MB)</label>
+                <label for="IjazahUjianDinas" class="col-sm-5 col-form-label">Ijazah Ujian Dinas (PDF, max 2MB)</label>
                 <div class="col-sm-6">
-                    <input type="file" class="form-control-file" id="ijazah_ud" name="ijazah_ud" accept=".pdf" max-size="2048000">
+                    <input type="file" class="form-control-file" id="IjazahUjianDinas" name="IjazahUjianDinas" accept=".pdf" max-size="2048000">
+                    <?= form_error('IjazahUjianDinas', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="algol" class="col-sm-5 col-form-label">Algol (khusus ke III/a) (PDF, max 2MB)</label>
+                <label for="Algol" class="col-sm-5 col-form-label">Algol (khusus ke III/a) (PDF, max 2MB)</label>
                 <div class="col-sm-6">
-                    <input type="file" class="form-control-file" id="algol" name="algol" accept=".pdf" max-size="2048000">
+                    <input type="file" class="form-control-file" id="Algol" name="Algol" accept=".pdf" max-size="2048000">
+                    <?= form_error('Algol', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="skp" class="col-sm-5 col-form-label">SKP 2 Thn Terakhir (PDF, max 2MB)</label>
+                <label for="SKP2ThnTerakhir" class="col-sm-5 col-form-label">SKP 2 Thn Terakhir (PDF, max 2MB)</label>
                 <div class="col-sm-6">
-                    <input type="file" class="form-control-file" id="skp" name="skp" accept=".pdf" max-size="2048000">
+                    <input type="file" class="form-control-file" id="SKP2ThnTerakhir" name="SKP2ThnTerakhir" accept=".pdf" max-size="2048000">
+                    <?= form_error('SKP2ThnTerakhir', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
             <!-- End of Upload File Fields -->

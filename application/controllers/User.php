@@ -177,17 +177,17 @@ class User extends CI_Controller
         $this->load->view('templates/footer');
     } else {
         $name = $this->input->post('name');
+        $user_id = $data['user']['id'];
 
         // Validasi dan proses upload file
-        $config['upload_path'] = './uploads/';
+        $config['upload_path'] = './upload/';
         $config['allowed_types'] = 'pdf';
         $config['max_size'] = 2048; // 2MB
 
         $this->load->library('upload', $config);
 
         $file_upload_names = ['KepPangkatTerakhir', 'KepJabatanTerakhir', 'IjazahDikumti', 'IjazahUjianDinas', 'Algol', 'SKP2ThnTerakhir'];
-
-        $file_paths = [];
+        echo "Path unggahan: ";
 
         foreach ($file_upload_names as $file_name) {
             if (!$this->upload->do_upload($file_name)) {
@@ -217,8 +217,8 @@ class User extends CI_Controller
         $this->db->where('id', $user_id);
         $this->db->update('user');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Your profile has been updated!</div>');
-        redirect('user');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File Kenaikan Pangkat Reguler Sudah Terupload!</div>');
+        redirect('user/usulkp');
     }
 }
 

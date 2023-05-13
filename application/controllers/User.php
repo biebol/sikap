@@ -151,7 +151,14 @@ class User extends CI_Controller
             $pangkat_baru = $this->input->post('pangkat_baru');
             $jenis_kenaikan = $this->input->post('jenis_kenaikan');
             $created_at = date('Y-m-d H:i:s');
-    
+            
+            $user_id = $this->session->userdata('id');
+            $usulkp_check = $this->db->get_where('kp_t', ['user_id' => $user_id])->row_array();
+            if ($usulkp_check) 
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Anda sudah mengirimkan usulan KP sebelumnya.</div>');
+                redirect('user/usulkp_form');
+            }
 
             // Simpan data ke dalam tabel usulkp
             $usulkp1_data =array(

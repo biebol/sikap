@@ -166,10 +166,13 @@ public function usulkp()
     {
         $data['title'] = 'Dokumen Kenaikan Pangkat Reguler';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+        $this->form_validation->set_rules('jenis_kenaikan', 'Jenis Kenaikan Pangkat', 'required');
 
         if ($this->form_validation->run() == false) {
+            $this->load->model('Usulkp_model'); // Load model Pangkat_model
+            $data['jenis_kenaikan'] = $this->Usulkp_model->getjeniskenaikan(); 
+            
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -231,12 +234,16 @@ public function usulkp()
 public function usulkp_f()
     {
         //untuk Menampilkan kolom user dan email
-        $data['title'] = 'Dokumen Kenaikan Pangkat Reguler';
+        $data['title'] = 'Dokumen Kenaikan Pangkat Fungsional';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+        $this->form_validation->set_rules('jenis_kenaikan', 'Jenis Kenaikan Pangkat', 'required');
+
 
         if ($this->form_validation->run() == false) {
+            $this->load->model('Usulkp_model'); // Load model Pangkat_model
+            $data['jenis_kenaikan'] = $this->Usulkp_model->getjeniskenaikan(); // Ambil opsi pangkat lama dari model
+            
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -245,6 +252,7 @@ public function usulkp_f()
         } else {
             $name = $this->input->post('name');
             $user_id = $data['user']['id'];
+
             
         $usulkp_check = $this->db->get_where('usulkp_f', ['user_id' => $user_id])->row_array();
             if ($usulkp_check) {
@@ -286,7 +294,7 @@ public function usulkp_f()
             $this->db->set('name', $name);
             $this->db->where('id', $user_id);
             $this->db->update('user');
-//test
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File Kenaikan Pangkat Reguler Sudah Terupload!</div>');
             redirect('user/usulkp_f');
         }

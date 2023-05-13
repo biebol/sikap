@@ -9,6 +9,16 @@
             <?= $this->session->flashdata('message'); ?>
             <?= form_open_multipart('user/usulkp'); ?>
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Foto</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
@@ -21,22 +31,21 @@
                 <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
- <!--           <div class="form-group row">
-                <div class="col-sm-2">Picture</div>
+            <div class="form-group row">
+                <label for="jenis_kenaikan" class="col-sm-2 col-form-label">Jenis Kenaikan</label>
                 <div class="col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="img-thumbnail">
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="image" name="image">
-                                <label class="custom-file-label" for="image">Choose file</label>
-                            </div>
-                        </div>
-                    </div>
+                    <select name="jenis_kenaikan" id="jenis_kenaikan" class="form-control" disabled>
+                        <?php foreach ($jenis_kenaikan as $key => $value) : ?>
+                            <?php if ($key == $usulkp['kp_id']) : ?>
+                                <option value="<?= $key; ?>" selected><?= $value; ?></option>
+                            <?php else : ?>
+                                <option value="<?= $key; ?>"><?= $value; ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
+                    <?= form_error('jenis_kenaikan', '<small class="text-danger">', '</small>'); ?>
                 </div>
-            </div> -->
+            </div>
 
             <!-- Upload File Fields -->
             <div class="form-group row">

@@ -32,12 +32,6 @@
             </div>
 
             <div class="form-group">
-                <label for="name">Nama</label>
-                <input type="text" class="form-control" id="name" name="nama" value="<?= set_value('nama'); ?>">
-                <?= form_error('name', '<small class="text-danger">', '</small>'); ?>
-            </div>
-
-            <div class="form-group">
                 <label for="jabatan">Jabatan</label>
                 <input type="text" class="form-control" id="jabatan" name="jabatan" value="<?= set_value('jabatan'); ?>">
                 <?= form_error('jabatan', '<small class="text-danger">', '</small>'); ?>

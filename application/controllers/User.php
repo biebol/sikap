@@ -115,33 +115,43 @@ class User extends CI_Controller
     {
         $data['title'] = 'Form Input Usulan Kenaikan Pangkat';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['name'] = $this->db->get_where('user', ['name' => $this->session->userdata('name')])->row_array();
 
 
         $this->form_validation->set_rules('nip', 'NIP', 'required');
-        $this->form_validation->set_rules('nama', 'Nama', 'required');
+        $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
         $this->form_validation->set_rules('jabatan', 'Jabatan', 'required');
         $this->form_validation->set_rules('pangkat_lama', 'Pangkat Lama', 'required');
         $this->form_validation->set_rules('pangkat_baru', 'Pangkat Baru', 'required');
         $this->form_validation->set_rules('jenis_kenaikan', 'Jenis Kenaikan Pangkat', 'required');
         
-        if ($this->form_validation->run() == false) {
+        if ($this->form_validation->run() == false) 
+        {
             $this->load->model('Pangkat_model'); // Load model Pangkat_model
             $data['pangkat_lama'] = $this->Pangkat_model->getPangkatOptions(); // Ambil opsi pangkat lama dari model
             $data['pangkat_baru'] = $this->Pangkat_model->getPangkatOptions(); // Ambil opsi pangkat baru dari model
+            
+            $user_id = $this->session->userdata('id');
+            $data['user_id'] = $this->db->get_where('user', ['id' => $this->session->userdata('user_id')])->row_array();
+
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('user/usulkp_form', $data);
             $this->load->view('templates/footer');
-        } else {
+        } 
+        else 
+        {
             $nip = $this->input->post('nip');
-            $nama = $this->input->post('nama');
+            $nama = $this->input->post('name');
+            $user_id= $data['user']['id'];
             $jabatan = $this->input->post('jabatan');
             $pangkat_lama = $this->input->post('pangkat_lama');
             $pangkat_baru = $this->input->post('pangkat_baru');
             $jenis_kenaikan = $this->input->post('jenis_kenaikan');
             $created_at = date('Y-m-d H:i:s');
+    
 
             // Simpan data ke dalam tabel usulkp
             $usulkp1_data =array(
@@ -149,6 +159,7 @@ class User extends CI_Controller
                 'nip' => $nip,
                 'nama' => $nama,
                 'jabatan' => $jabatan,
+                'user_id' => $user_id,
                 'pangkat_lama_id' => $pangkat_lama,
                 'pangkat_baru_id' => $pangkat_baru,
                 'jenis_kenaikan' => $jenis_kenaikan,
@@ -252,6 +263,7 @@ public function usulkp_f()
         } else {
             $name = $this->input->post('name');
             $user_id = $data['user']['id'];
+            $kp_id =$this->input->post('kp_id');
 
             
         $usulkp_check = $this->db->get_where('usulkp_f', ['user_id' => $user_id])->row_array();
@@ -285,10 +297,11 @@ public function usulkp_f()
                 'KepJabatanTerakhir' => $file_paths['KepJabatanTerakhir'],
                 'IjazahDikumti' => $file_paths['IjazahDikumti'],
                 'kp_id' => $kp_id,
+                'Algol' => null,
                 'PAK' => $file_paths['PAK'],
                 'SKP2ThnTerakhir' => $file_paths['SKP2ThnTerakhir'],
             ];
-            $this->db->insert('usulkp', $usulkp_data);
+            $this->db->insert('usulkp', $usulkp_f_data);
 
             // Update data ke tabel user
             $this->db->set('name', $name);
@@ -297,6 +310,77 @@ public function usulkp_f()
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File Kenaikan Pangkat Reguler Sudah Terupload!</div>');
             redirect('user/usulkp_f');
+        }
+    }
+    
+public function usulkp_s()
+{
+    //untuk Menampilkan kolom user dan email
+    $data['title'] = 'Dokumen Kenaikan Pangkat Struktural';
+    $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+    $this->form_validation->set_rules('jenis_kenaikan', 'Jenis Kenaikan Pangkat', 'required');
+
+
+    if ($this->form_validation->run() == false) {
+        $this->load->model('Usulkp_model'); // Load model Pangkat_model
+        $data['jenis_kenaikan'] = $this->Usulkp_model->getjeniskenaikan(); // Ambil opsi pangkat lama dari model
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/usulkp_s', $data);
+        $this->load->view('templates/footer');
+    } else {
+        $name = $this->input->post('name');
+        $user_id = $data['user']['id'];
+        $kp_id =$this->input->post('kp_id');
+
+        
+    $usulkp_check = $this->db->get_where('usulkp_s', ['user_id' => $user_id])->row_array();
+        if ($usulkp_check) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">File-file Sudah Diunggah Sebelumnya.</div>');
+            redirect('user/usulkp_s');
+        }
+       //tempat menyimpan file yang di upload
+        $config['upload_path'] = './upload/';
+        $config['allowed_types'] = 'pdf';
+        $config['max_size'] = 2048; // 2MB
+
+        $this->load->library('upload', $config);
+
+        $file_upload_names = ['KepPangkatTerakhir', 'KepJabatanTerakhir', 'IjazahDikumti', 'IjasahPim', 'SKP2ThnTerakhir'];
+        
+        foreach ($file_upload_names as $file_name) {
+            if (!$this->upload->do_upload($file_name)) {
+                $error = $this->upload->display_errors();
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $error . '</div>');
+                redirect('user/usulkp_s');
+            } else {
+                $file_paths[$file_name] = $this->upload->data('file_path');
+            }
+        }
+
+        // Simpan data ke tabel usulkp
+          $usulkp_s_data = [
+            'user_id' => $user_id,
+            'KepPangkatTerakhir' => $file_paths['KepPangkatTerakhir'],
+            'KepJabatanTerakhir' => $file_paths['KepJabatanTerakhir'],
+            'IjazahDikumti' => $file_paths['IjazahDikumti'],
+            'kp_id' => $kp_id,
+            'Algol' => null,
+            'IjasahPim' => $file_paths['IjasahPim'],
+            'SKP2ThnTerakhir' => $file_paths['SKP2ThnTerakhir'],
+        ];
+        $this->db->insert('usulkp', $usulkp_s_data);
+
+        // Update data ke tabel user
+        $this->db->set('name', $name);
+        $this->db->where('id', $user_id);
+        $this->db->update('user');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File Kenaikan Pangkat Reguler Sudah Terupload!</div>');
+        redirect('user/usulkp_s');
         }
     }
 

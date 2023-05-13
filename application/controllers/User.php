@@ -179,6 +179,13 @@ class User extends CI_Controller
         $name = $this->input->post('name');
         $user_id = $data['user']['id'];
 
+        //validasi untuk proses jika ada user yang sudah upload makan di berikan notice
+        $usulkp_check = $this->db->get_where('usulkp', ['user_id' => $user_id])->row_array();
+        if ($usulkp_check) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">File-file sudah diunggah sebelumnya.</div>');
+            redirect('user/usulkp');
+        }
+
         // Validasi dan proses upload file
         $config['upload_path'] = './upload/';
         $config['allowed_types'] = 'pdf';

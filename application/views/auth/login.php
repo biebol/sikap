@@ -1,5 +1,5 @@
 <div class="container">
-</style>
+    </style>
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
@@ -14,9 +14,9 @@
                             <div class="p-4">
                                 <div class="text-center">
                                     <a href="#">
-                                        <img src="<?= base_url('assets/img/logo.jpg'); ?>" alt="Logo" class="img-responsive" style="max-height: 150px;">
+                                        <img src="<?= base_url('assets/img/logo2.jpg'); ?>" alt="Logo" class="img-responsive" style="max-height: 150px;">
                                     </a>
-                                    <h1 class="h4 text-gray-900 mb-4"><b>Menu Login</b></h1>
+                                    <h1 class="h4 text-blue-400 mb-4"><b>Login</b></h1>
                                 </div>
 
                                 <?= $this->session->flashdata('message'); ?>

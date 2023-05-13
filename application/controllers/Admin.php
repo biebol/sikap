@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Pangkat_model');
     }
 
     public function index()
@@ -76,7 +77,7 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Access Changed!</div>');
     }
     public function pangkat()
-{
+    {
     $data['title'] = 'Tambah Pangkat';
     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
@@ -84,7 +85,7 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('nama_pangkat', 'Nama Pangkat', 'required');
     $this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
     $data['pangkat'] = $this->db->get('pangkat')->result_array();
-    
+
     if ($this->form_validation->run() == false) {
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -113,5 +114,25 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pangkat Sudah Update</div>');
         redirect('admin/pangkat');
     }
-}
+    }
+
+    public function updatePangkat($pangkat_id) {
+        $nama_pangkat = $this->input->post('nama_pangkat');
+        $singkatan = $this->input->post('singkatan');
+    
+        // Panggil model untuk memperbarui data pangkat di database
+        $this->Pangkat_model->updatePangkat($pangkat_id, $nama_pangkat, $singkatan);
+    
+        $this->session->set_flashdata('message', 'Data pangkat berhasil diperbarui.');
+        redirect('admin/pangkat');
+    }
+    public function deletePangkat($pangkat_id)  
+    {
+        
+    // Panggil model untuk menghapus data pangkat dari database
+    $this->Pangkat_model->deletePangkat($pangkat_id);
+
+    $this->session->set_flashdata('message', 'Data pangkat berhasil dihapus.');
+    redirect('admin/pangkat');
+    }
 }

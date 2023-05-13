@@ -172,7 +172,7 @@ class User extends CI_Controller
             redirect('user/usulkp_form');
         }
     }
-
+ //untuk form Kenaikan Pangkat Regurel
 public function usulkp()
     {
         $data['title'] = 'Dokumen Kenaikan Pangkat Reguler';

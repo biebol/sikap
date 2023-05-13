@@ -8,9 +8,6 @@
         <div class="col-lg-6">
             <?= $this->session->flashdata('message'); ?>
             <?= form_open_multipart('user/usulkp_form'); ?>
-<<<<<<< HEAD
-
-=======
             <div class="form-group row">
                 <label for="email" class="col-sm-4 col-form-label">Email</label>
                 <div class="col-sm-9">
@@ -24,7 +21,6 @@
                 <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
->>>>>>> 078b90745829cd6218f4b94da82403dfa9c0cdad
             <div class="form-group">
                 <label for="nip">NIP</label>
                 <input type="text" class="form-control" id="nip" name="nip" value="<?= set_value('nip'); ?>">

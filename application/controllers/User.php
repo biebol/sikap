@@ -286,7 +286,7 @@ public function usulkp_f()
             $this->db->set('name', $name);
             $this->db->where('id', $user_id);
             $this->db->update('user');
-
+//test
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">File Kenaikan Pangkat Reguler Sudah Terupload!</div>');
             redirect('user/usulkp_f');
         }
